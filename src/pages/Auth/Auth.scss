@@ -1,0 +1,49 @@
+@import "../../Variables.scss";
+
+.authWrapper {
+    @include flexCenterAll;
+
+    .authCard {
+        margin-top: 100px;
+        border-radius: 20px;
+        min-width: 380px;
+        background-color: $primary-color;
+        padding: 40px 15px;
+
+        h1 {
+            color: $secondary-color;
+            font-size: $large-text-size;
+        }
+
+        form {
+            margin-top: 20px;
+            color: $secondary-color;
+            font-size: $medium-text-size;
+            input {
+                width: 100%;
+                border-radius: 5px;
+            }
+        }
+
+        .buttonGroup {
+            display: flex;
+            align-items: center;
+            font-size: $medium-text-size;
+            margin-top: 30px;
+            button {
+                display: block;
+                outline: none;
+                border: none;
+                flex-basis: 50%;
+                background-color: transparent;
+                color: $secondary-color;
+                border-radius: 5px;
+                &:hover,
+                &:focus {
+                    background-color: $secondary-color;
+                    color: black;
+                }
+            }
+        }
+    }
+}

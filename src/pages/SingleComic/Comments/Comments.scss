@@ -1,0 +1,85 @@
+@import "../../../Variables.scss";
+
+.commentsWrapper {
+    margin-top: 100px;
+    .commentsHeading {
+        @include sectionHeading;
+    }
+
+    .commentInput {
+        display: flex;
+        align-items: stretch;
+        justify-content: space-between;
+        height: 60px;
+
+        @mixin commonProps {
+            outline: none;
+            border: 2px solid $primary-color;
+            border-radius: 5px;
+        }
+
+        input {
+            flex-basis: 79%;
+            font-size: $small-text-size;
+            padding: 10px;
+            font-weight: bold;
+            background-color: $primary-color;
+            color: white;
+            letter-spacing: 1px;
+            @include commonProps;
+        }
+
+        button {
+            flex-basis: 20%;
+            font-size: $medium-text-size;
+            background-color: transparent;
+            color: $primary-color;
+            @include commonProps;
+
+            &:hover {
+                background-color: $primary-color;
+                color: white;
+            }
+        }
+    }
+
+    .singleComment {
+        position: relative;
+        .leftBar {
+            position: absolute;
+            height: 90%;
+            top: 5%;
+            width: 5px;
+            background-color: $primary-color;
+        }
+
+        .singleCommentText {
+            margin-left: 15px;
+
+            h5 span {
+                font-size: $very-small-text-size;
+                font-weight: 300;
+            }
+
+            p {
+                font-size: $very-small-text-size;
+            }
+        }
+    }
+
+    .loadMoreComments {
+        text-align: center;
+        button {
+            border: 1px solid $primary-color;
+            color: $primary-color;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-weight: 500;
+            background-color: transparent;
+            &:hover {
+                background-color: $primary-color;
+                color: white;
+            }
+        }
+    }
+}

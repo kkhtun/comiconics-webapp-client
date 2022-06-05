@@ -1,0 +1,51 @@
+@import "../../Variables.scss";
+
+@mixin navHover {
+    color: white;
+    background-color: $primary-color;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $secondary-color;
+    font-size: $large-text-size;
+    color: $primary-color;
+    .headerLeft {
+        margin-left: 20px;
+        display: flex;
+        align-items: center;
+
+        .headerLogo {
+            margin-right: 20px;
+        }
+
+        nav {
+            padding: 10px;
+            .navLink {
+                border-radius: 40px;
+                padding: 5px 15px;
+                margin-right: 10px;
+                &:hover {
+                    @include navHover;
+                }
+            }
+        }
+    }
+
+    .headerRight {
+        margin-right: 20px;
+        padding: 10px;
+        font-size: $medium-text-size;
+        .dropdown {
+            border-radius: 40px;
+            border: 1px solid $primary-color;
+            color: $primary-color;
+            &:hover {
+                @include navHover;
+            }
+        }
+    }
+}

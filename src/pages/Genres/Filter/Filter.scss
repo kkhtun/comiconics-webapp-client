@@ -1,0 +1,88 @@
+@import "../../../Variables.scss";
+
+.genresHeader {
+    background-image: url("/assets/hero-background.jpg");
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    .container {
+        height: 100%;
+        .row {
+            padding: 20px 0;
+            height: inherit;
+            .selectedGenres {
+                display: flex;
+                align-items: flex-end;
+                span {
+                    background-color: $tertiary-color;
+                    font-size: $small-text-size;
+                    margin-right: 10px;
+                }
+            }
+
+            .genresFilter {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                $filterWidth: 300px;
+                $searchBoxHeight: 40px;
+                z-index: 3;
+                & > * {
+                    margin-top: 10px;
+                }
+
+                .searchBox {
+                    background-color: $secondary-color;
+                    height: $searchBoxHeight;
+                    width: $filterWidth;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    position: relative;
+                    border-radius: 5px;
+                    overflow: hidden;
+                    img {
+                        position: absolute;
+                        height: calc($searchBoxHeight * 0.5);
+                        right: 10px;
+                    }
+                    input {
+                        height: $searchBoxHeight;
+                        width: 100%;
+                        border: none;
+                        padding-left: 10px;
+                        border-radius: 5px;
+                        &:focus,
+                        &:hover {
+                            border: 2px solid $primary-color;
+                        }
+                    }
+                }
+
+                .filterBox {
+                    max-width: $filterWidth;
+                    .react-select {
+                        border: 2px solid transparent;
+                        &:hover {
+                            border: 2px solid $primary-color;
+                        }
+                    }
+                }
+
+                .filterButton {
+                    max-width: $filterWidth;
+                    max-height: $searchBoxHeight;
+                    outline: none;
+                    border: 1px solid $tertiary-color;
+                    color: white;
+                    background-color: $tertiary-color;
+                    border-radius: 10px;
+                    font-size: $medium-text-size;
+                    &:hover {
+                        background-color: transparent;
+                    }
+                }
+            }
+        }
+    }
+}

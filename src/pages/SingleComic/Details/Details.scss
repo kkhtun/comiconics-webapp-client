@@ -1,0 +1,51 @@
+@import "../../../Variables.scss";
+
+.singleComicDetails {
+    .coverImage {
+        img {
+            width: 100%;
+        }
+    }
+
+    .comicButtons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .likeComicButton {
+            flex-basis: 49%;
+            outline: none;
+            border: 1px solid $primary-color;
+            color: $primary-color;
+            background-color: transparent;
+            border-radius: 5px;
+            padding: 4px 10px;
+            font-size: $small-text-size;
+            &:hover {
+                background-color: $primary-color;
+                color: white;
+            }
+        }
+
+        .likedComicButton {
+            color: white;
+            background-color: $primary-color;
+        }
+    }
+
+    .comicDescription {
+        font-size: $small-text-size;
+        text-align: justify;
+    }
+
+    .comicMetadata {
+        font-size: $medium-text-size;
+        & > div {
+            margin-top: 10px;
+        }
+        .metadataIcons {
+            display: inline-block;
+            text-align: center;
+            width: calc($medium-text-size + 10px);
+        }
+    }
+}

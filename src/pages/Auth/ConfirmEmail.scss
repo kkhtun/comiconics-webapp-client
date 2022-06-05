@@ -1,0 +1,18 @@
+@import "../../Variables.scss";
+
+.authCard {
+    max-width: 380px;
+
+    label {
+        font-size: $small-text-size;
+    }
+
+    .resendCode {
+        margin-top: 15px;
+        color: blue;
+        &:hover,
+        &:focus {
+            color: $tertiary-color;
+        }
+    }
+}

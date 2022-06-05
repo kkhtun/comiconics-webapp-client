@@ -1,0 +1,38 @@
+@import "../../../Variables.scss";
+
+.chaptersWrapper {
+    .chaptersHeading {
+        @include sectionHeading;
+    }
+
+    .chapterCard {
+        $chapterCardHeight: 150px;
+        height: $chapterCardHeight;
+        overflow: hidden;
+        border-radius: 5px;
+        background-color: $primary-color-light;
+        cursor: pointer;
+        img {
+            height: $chapterCardHeight;
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        .chapterText {
+            margin-top: 5px;
+            padding: 10px;
+            h3 {
+                font-size: $medium-text-size;
+                line-height: 1.2em;
+                height: calc(
+                    $medium-text-size * 3 * 1.2
+                ); // allow only up to 3 lines
+                overflow: hidden;
+            }
+        }
+        &:hover {
+            color: $secondary-color;
+            background-color: $primary-color;
+        }
+    }
+}

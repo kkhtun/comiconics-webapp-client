@@ -1,0 +1,39 @@
+$primary-color: #979265;
+$secondary-color: #f2fedc;
+$tertiary-color: #dedc0e;
+
+$primary-color-light: rgba(151, 146, 101, 0.7);
+
+$very-large-text-size: 60px;
+$large-text-size: 30px;
+$medium-text-size: 24px;
+$small-text-size: 20px;
+$very-small-text-size: 18px;
+
+@mixin flexCenterAll {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin standardButton {
+    outline: none;
+    border: 1px solid $primary-color;
+    color: white;
+    background-color: $primary-color;
+    border-radius: 20px;
+    padding: 10px 25px;
+    font-size: $large-text-size;
+    &:hover,
+    &:focus {
+        background-color: transparent;
+        color: $primary-color;
+    }
+}
+
+@mixin sectionHeading {
+    background-color: $tertiary-color;
+    display: inline-block;
+    font-size: $large-text-size;
+    margin-bottom: 40px;
+}

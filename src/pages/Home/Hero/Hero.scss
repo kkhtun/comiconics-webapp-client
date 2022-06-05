@@ -1,0 +1,54 @@
+@import "../../../Variables.scss";
+.heroSection {
+    background-image: url("/assets/hero-background.jpg");
+    height: calc(100vh - 80px);
+    width: 100%;
+
+    .container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .heroCard {
+            height: 90%;
+            border-radius: 20px;
+            overflow: hidden;
+            background-color: $secondary-color;
+
+            .heroTextCol {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                & > div {
+                    width: 80%;
+                    h1 {
+                        font-size: $very-large-text-size;
+                    }
+                    p {
+                        font-size: $medium-text-size;
+                    }
+                    button {
+                        @include standardButton;
+                    }
+                }
+            }
+
+            .coverImgCol {
+                background-image: url("/assets/hero-featured.jpg");
+                background-position: center;
+                background-size: cover;
+
+                span {
+                    color: $tertiary-color;
+                    background-color: $secondary-color;
+                    font-size: $small-text-size;
+                    font-weight: 700;
+                    padding: 10px;
+                    display: inline-block;
+                    margin: 10px 0 0 10px;
+                }
+            }
+        }
+    }
+}

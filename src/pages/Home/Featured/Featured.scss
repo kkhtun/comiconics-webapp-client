@@ -1,0 +1,9 @@
+@import "../../../Variables.scss";
+
+.featuredWrapper {
+    margin-top: 50px;
+
+    h2 {
+        @include sectionHeading;
+    }
+}
