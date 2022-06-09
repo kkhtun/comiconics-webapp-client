@@ -1,6 +1,6 @@
 import { NavDropdown } from "react-bootstrap";
 import "./Header.scss";
-import { useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function Header() {
@@ -12,10 +12,6 @@ function Header() {
         {
             name: "Genres",
             route: "/genres",
-        },
-        {
-            name: "About",
-            route: "/about",
         },
         {
             name: "Login",
@@ -30,6 +26,12 @@ function Header() {
         setPath(pathname);
     }, [pathname]);
 
+    const handleLogout = (e) => {
+        // just a quick workaround for devflow, need to implement more elegant way
+        localStorage.clear();
+        window.location.reload();
+    };
+
     return (
         <>
             {path.includes("/read") ? (
@@ -43,9 +45,17 @@ function Header() {
                         </div>
                         <nav>
                             {links.map((l, idx) => (
-                                <span className="navLink" key={idx}>
+                                <NavLink
+                                    to={l.route}
+                                    key={idx}
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? "navLink navLinkActive"
+                                            : "navLink"
+                                    }
+                                >
                                     {l.name}
-                                </span>
+                                </NavLink>
                             ))}
                         </nav>
                     </div>
@@ -54,7 +64,9 @@ function Header() {
                             title="admin@gmail.com"
                             className="dropdown"
                         >
-                            <NavDropdown.Item>Logout</NavDropdown.Item>
+                            <NavDropdown.Item onClick={handleLogout}>
+                                Logout
+                            </NavDropdown.Item>
                         </NavDropdown>
                     </div>
                 </section>

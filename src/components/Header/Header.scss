@@ -1,7 +1,7 @@
 @import "../../Variables.scss";
 
 @mixin navHover {
-    color: white;
+    color: white !important;
     background-color: $primary-color;
 }
 
@@ -31,6 +31,10 @@
                 &:hover {
                     @include navHover;
                 }
+            }
+
+            .navLinkActive {
+                @include navHover;
             }
         }
     }

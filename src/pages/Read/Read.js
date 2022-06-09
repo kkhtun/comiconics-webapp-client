@@ -1,11 +1,7 @@
 import "./Read.scss";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import environment from "../../environment";
 import Pagination from "../../components/Pagination/Pagination";
-
-function Placeholder() {
-    return <div style={{ width: "100%", height: "100vh" }}>Placeholder</div>;
-}
 
 function Read() {
     const [pages, setPages] = useState([]);

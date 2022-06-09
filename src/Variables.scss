@@ -24,8 +24,7 @@ $very-small-text-size: 18px;
     border-radius: 20px;
     padding: 10px 25px;
     font-size: $large-text-size;
-    &:hover,
-    &:focus {
+    &:hover {
         background-color: transparent;
         color: $primary-color;
     }

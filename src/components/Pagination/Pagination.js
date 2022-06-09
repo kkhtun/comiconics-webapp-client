@@ -1,15 +1,13 @@
 import ReactPaginate from "react-paginate";
-import { useState, useEffect } from "react";
 import "./Pagination.scss";
 function Pagination({
     onPageChange = () => {},
-    pageCount = 0,
+    count = 0,
     limit = 10,
     customClass = "",
 }) {
     // Invoke when user click to request another page.
     const handlePageClick = (event) => {
-        console.log(`User requested page number ${event.selected}`);
         const skip = event.selected * limit;
         onPageChange({ page: event.selected, skip });
     };
@@ -20,7 +18,7 @@ function Pagination({
                 onPageChange={handlePageClick}
                 pageRangeDisplayed={5}
                 marginPagesDisplayed={1}
-                pageCount={pageCount}
+                pageCount={Math.ceil(count / limit)}
                 previousLabel="< previous"
                 renderOnZeroPageCount={null}
                 containerClassName={"pagination"}

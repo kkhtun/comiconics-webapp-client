@@ -1,4 +1,6 @@
 import "./Hero.scss";
+import { Link } from "react-scroll";
+
 function Hero() {
     return (
         <section className="heroSection">
@@ -12,7 +14,9 @@ function Hero() {
                                 with a variety of high quality originals on
                                 comiconics.
                             </p>
-                            <button>Start Reading</button>
+                            <Link to="featured">
+                                <button>Start Reading</button>
+                            </Link>
                         </div>
                     </div>
                     <div className="col-6 coverImgCol">
