@@ -1,11 +1,14 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useContext } from "react";
 import environment from "../../environment";
 import Grid from "../../components/Grid/Grid";
 import Pagination from "../../components/Pagination/Pagination";
 import Filter from "./Filter/Filter";
 import "./Genres.scss";
+import { LoaderContext } from "../../contexts/loader.context";
 
 function Genres() {
+    const { setLoading } = useContext(LoaderContext);
+
     const [comics, setComics] = useState([]);
     const [count, setCount] = useState(0);
     const [skip, setSkip] = useState(0);
@@ -26,6 +29,7 @@ function Genres() {
     };
 
     const fetchComics = useCallback(async () => {
+        setLoading(true);
         let url = `${environment.url}/api/v1/comics?limit=${limit}&skip=${skip}`;
         if (genres.length) url += `&genres=${genres.join(",")}`;
         if (search) url += `&search=${search}`;
@@ -34,7 +38,8 @@ function Genres() {
         const { data, count } = await res.json();
         setComics(data);
         setCount(count);
-    }, [skip, limit, genres, search]);
+        setLoading(false);
+    }, [setLoading, skip, limit, genres, search]);
 
     useEffect(() => {
         fetchComics().catch(console.error);

@@ -41,7 +41,7 @@ function Router() {
                     <Route path="/" element={<Home />} />
                     <Route path="/genres" element={<Genres />} />
                     <Route path="/comics/:comic_id" element={<SingleComic />} />
-                    <Route path="/read" element={<Read />} />
+                    <Route path="/read/:chapter_id" element={<Read />} />
 
                     <Route
                         path=""

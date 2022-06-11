@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { useCallback, useEffect, useState, useContext } from "react";
 import environment from "../../environment";
 import { LoaderContext } from "../../contexts/loader.context";
+import axios from "axios";
 
 function SingleComic() {
     const { comic_id } = useParams();
@@ -14,8 +15,9 @@ function SingleComic() {
 
     const fetchComic = useCallback(async () => {
         setLoading(true);
-        const res = await fetch(`${environment.url}/api/v1/comics/${comic_id}`);
-        const data = await res.json();
+        const { data } = await axios.get(
+            `${environment.url}/api/v1/comics/${comic_id}`
+        );
         setComic(data);
         setLoading(false);
     }, [comic_id, setLoading]);

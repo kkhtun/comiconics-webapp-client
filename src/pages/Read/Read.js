@@ -1,9 +1,14 @@
 import "./Read.scss";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useContext } from "react";
 import environment from "../../environment";
 import Pagination from "../../components/Pagination/Pagination";
+import { useParams } from "react-router-dom";
+import { LoaderContext } from "../../contexts/loader.context";
 
 function Read() {
+    const { chapter_id } = useParams();
+    const { setLoading } = useContext(LoaderContext);
+
     const [pages, setPages] = useState([]);
     const [scrollMode, setScrollMode] = useState(false);
 
@@ -13,14 +18,17 @@ function Read() {
         setCurrentPage(page);
     };
 
+    // Calling API
     const fetchPages = useCallback(async () => {
+        setLoading(true);
         const res = await fetch(
-            environment.url + "/api/v1/chapters/6293316ba0426a76f7d6b966"
+            environment.url + `/api/v1/chapters/${chapter_id}`
         );
         const { pages } = await res.json();
-        setPages(pages);
+        pages && setPages(pages);
         setCurrentPage(0);
-    }, []);
+        setLoading(false);
+    }, [chapter_id, setLoading]);
 
     useEffect(() => {
         fetchPages().catch(console.error);
@@ -36,7 +44,8 @@ function Read() {
                     ) : (
                         <Pagination
                             onPageChange={onPageChange}
-                            pageCount={pages.length}
+                            count={pages.length}
+                            limit={1}
                         />
                     )}
                 </div>
@@ -73,7 +82,7 @@ function Pages({ pages }) {
 
 function SinglePage({ page }) {
     const [image, setImage] = useState("");
-    const [loading, setLoading] = useState(true);
+    const { setLoading } = useContext(LoaderContext);
     useEffect(() => {
         setLoading(true);
         fetch(page)
@@ -84,14 +93,10 @@ function SinglePage({ page }) {
                 setImage(localUrl);
                 setLoading(false);
             });
-    }, [page]);
+    }, [page, setLoading]);
     return (
         <div className="singlePageView">
-            {loading ? (
-                <h2 className="text-center">Loading Image...</h2>
-            ) : (
-                <img src={image} alt="page" />
-            )}
+            <img src={image} alt="page" />
         </div>
     );
 }

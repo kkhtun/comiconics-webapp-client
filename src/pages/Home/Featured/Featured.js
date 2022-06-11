@@ -1,15 +1,22 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useContext } from "react";
+import axios from "axios";
 import environment from "../../../environment";
 import Grid from "../../../components/Grid/Grid";
 import "./Featured.scss";
+import { LoaderContext } from "../../../contexts/loader.context";
 
 function Featured() {
+    const { setLoading } = useContext(LoaderContext);
     const [comics, setComics] = useState([]);
+
     const fetchLatestComics = useCallback(async () => {
-        const res = await fetch(environment.url + "/api/v1/comics?limit=10");
-        const { data } = await res.json();
-        setComics(data);
-    }, []);
+        setLoading(true);
+        const { data } = await axios.get(
+            environment.url + "/api/v1/comics?limit=10"
+        );
+        setComics(data ? data.data : []);
+        setLoading(false);
+    }, [setLoading]);
 
     useEffect(() => {
         fetchLatestComics().catch(console.error);

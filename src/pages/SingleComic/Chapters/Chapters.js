@@ -1,8 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import "./Chapters.scss";
 
 function ChapterCard({ chapter, fallbackThumbnail }) {
+    const navigate = useNavigate();
+
     return (
-        <div className="chapterCard row g-0">
+        <div
+            className="chapterCard row g-0"
+            onClick={() => navigate("/read/" + chapter._id)}
+        >
             <div className="col-3">
                 <img
                     src={chapter.thumbnail || fallbackThumbnail}

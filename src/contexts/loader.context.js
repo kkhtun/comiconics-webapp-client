@@ -14,13 +14,19 @@ function LoaderContextProvider({ children }) {
             timeout = setTimeout(() => {
                 setTimeoutLoading(loading);
                 clearTimeout(timeout);
-            }, 300);
+            }, 200);
         }
         return () => clearTimeout(timeout);
     }, [loading]);
 
     return (
-        <LoaderContext.Provider value={{ loading: timeoutLoading, setLoading }}>
+        <LoaderContext.Provider
+            value={{
+                loading: timeoutLoading,
+                setLoading,
+                setLoadingInstant: setTimeoutLoading,
+            }}
+        >
             {children}
         </LoaderContext.Provider>
     );

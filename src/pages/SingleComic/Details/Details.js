@@ -7,10 +7,34 @@ import {
     faClockRotateLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
+import axios from "axios";
+import environment from "../../../environment";
+import { useEffect, useState } from "react";
 
 function Details({ comic }) {
-    const { title, description, thumbnail, chaptersCount, genres, updatedAt } =
-        comic;
+    const [hasLiked, setHasLiked] = useState(false);
+    const {
+        _id,
+        title,
+        description,
+        thumbnail,
+        chaptersCount,
+        genres,
+        likeCount,
+        liked,
+        updatedAt,
+    } = comic;
+
+    useEffect(() => {
+        setHasLiked(!!liked);
+    }, [comic, liked]);
+
+    const likeOrUnlikeComic = async (comic_id) => {
+        const { data } = await axios.patch(
+            `${environment.url}/api/v1/comics/${comic_id}/likes`
+        );
+        setHasLiked(data.liked);
+    };
     return (
         <section className="singleComicDetails mt-5">
             <div className="row">
@@ -19,14 +43,23 @@ function Details({ comic }) {
                         <img src={thumbnail} alt="dummy" />
                     </div>
                     <div className="comicButtons mt-2">
-                        <button className="likeComicButton">
-                            <FontAwesomeIcon icon={faHeart} />
-                            <span>&nbsp;Like</span>
-                        </button>
-                        {/* <button className="likeComicButton likedComicButton">
-                    <FontAwesomeIcon icon={faHeart} />
-                    <span>&nbsp;Liked</span>
-                </button> */}
+                        {hasLiked === true ? (
+                            <button
+                                className="likeComicButton likedComicButton"
+                                onClick={() => likeOrUnlikeComic(_id)}
+                            >
+                                <FontAwesomeIcon icon={faHeart} />
+                                <span>&nbsp;Liked</span>
+                            </button>
+                        ) : (
+                            <button
+                                className="likeComicButton"
+                                onClick={() => likeOrUnlikeComic(_id)}
+                            >
+                                <FontAwesomeIcon icon={faHeart} />
+                                <span>&nbsp;Like</span>
+                            </button>
+                        )}
                     </div>
                 </div>
                 <div className="col-md-6">
@@ -39,7 +72,7 @@ function Details({ comic }) {
                             <FontAwesomeIcon icon={faHeart} />
                         </span>
                         &nbsp;Likes&nbsp;:&nbsp;
-                        <span>23</span>
+                        <span>{likeCount}</span>
                     </div>
                     <div>
                         <span className="metadataIcons">
