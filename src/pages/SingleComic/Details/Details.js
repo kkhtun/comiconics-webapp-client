@@ -6,15 +6,17 @@ import {
     faList,
     faClockRotateLeft,
 } from "@fortawesome/free-solid-svg-icons";
-import Image from "../../../assets/demon-slayer.jpg";
+import moment from "moment";
 
-function Details() {
+function Details({ comic }) {
+    const { title, description, thumbnail, chaptersCount, genres, updatedAt } =
+        comic;
     return (
         <section className="singleComicDetails mt-5">
             <div className="row">
                 <div className="col-md-3">
                     <div className="coverImage">
-                        <img src={Image} alt="dummy" />
+                        <img src={thumbnail} alt="dummy" />
                     </div>
                     <div className="comicButtons mt-2">
                         <button className="likeComicButton">
@@ -28,31 +30,8 @@ function Details() {
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <h1 className="text-center comicTitle">
-                        The One Where Comic Title Is The Largest
-                    </h1>
-                    <p className="comicDescription mt-5">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Donec placerat, nibh porta sollicitudin eleifend, velit
-                        mi vehicula dui, in ornare libero augue tristique dolor.
-                        Nunc risus sem, condimentum at lacinia sed, varius sit
-                        amet massa. Nulla nec efficitur eros. Nunc egestas
-                        accumsan nibh, sit amet auctor est mattis volutpat.
-                        Interdum et malesuada fames ac ante ipsum primis in
-                        faucibus. <br /> Nunc malesuada elit sed velit
-                        consectetur dictum. Phasellus nec ligula efficitur,
-                        sollicitudin ligula vitae, pellentesque odio.
-                        Pellentesque non metus tellus. Donec facilisis neque
-                        dolor, et porta ex placerat vel. Aliquam ultricies, orci
-                        nec sollicitudin rutrum, mi odio gravida mauris, eget
-                        lacinia justo metus a enim. In rhoncus, eros vel finibus
-                        sodales, eros neque aliquet ex, non tincidunt velit
-                        lacus sit amet tellus. Praesent vel ligula et enim
-                        gravida eleifend. Cras vitae urna placerat, ullamcorper
-                        nisi ut, condimentum est. Cras aliquet enim libero,
-                        tristique malesuada nulla varius at. Ut rutrum lacus sed
-                        faucibus vehicula.{" "}
-                    </p>
+                    <h1 className="text-center comicTitle">{title}</h1>
+                    <p className="comicDescription mt-5">{description}</p>
                 </div>
                 <div className="col-md-3 comicMetadata">
                     <div>
@@ -67,21 +46,25 @@ function Details() {
                             <FontAwesomeIcon icon={faBookmark} />
                         </span>
                         &nbsp;Chapters&nbsp;:&nbsp;
-                        <span>4</span>
+                        <span>{chaptersCount}</span>
                     </div>
                     <div>
                         <span className="metadataIcons">
                             <FontAwesomeIcon icon={faList} />
                         </span>
                         &nbsp;Genres&nbsp;:&nbsp;
-                        <span>Action | Adventure</span>
+                        <span>
+                            {genres
+                                ? genres.map((g) => g.name).join(" | ")
+                                : ""}
+                        </span>
                     </div>
                     <div>
                         <span className="metadataIcons">
                             <FontAwesomeIcon icon={faClockRotateLeft} />
                         </span>
                         &nbsp;Last Updated&nbsp;:&nbsp;
-                        <span>4</span>
+                        <span>{moment(updatedAt).fromNow()}</span>
                     </div>
                 </div>
             </div>

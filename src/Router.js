@@ -3,10 +3,11 @@ import Wrapper from "./Wrapper";
 import Auth from "./pages/Auth/Auth";
 import Home from "./pages/Home/Home";
 import Protected from "./pages/Protected/Protected";
-import { useEffect, useState } from "react";
+import { useEffect, useContext } from "react";
 import Genres from "./pages/Genres/Genres";
 import SingleComic from "./pages/SingleComic/SingleComic";
 import Read from "./pages/Read/Read";
+import { AuthContext } from "./contexts/auth.context";
 
 function ProtectedRoute({ auth }) {
     if (!auth) {
@@ -21,21 +22,25 @@ function InverseProtectedRoute({ auth }) {
 }
 
 function Router() {
-    const [auth, setAuth] = useState({ token: null, email: null });
+    const { auth, setAuth } = useContext(AuthContext);
     useEffect(() => {
         let token = localStorage.getItem("COMICONICS_TOKEN");
-        if (token) {
-            setAuth((prev) => ({ ...prev, token }));
-            console.log("Previous token found on storage, set to state");
+        let email = localStorage.getItem("COMICONICS_USER");
+        if (token && email) {
+            setAuth({ token, email });
+            console.log("Previous token found on storage, set to context");
+        } else {
+            setAuth({});
+            localStorage.clear();
         }
-    }, []);
+    }, [setAuth]);
     return (
         <HashRouter>
             <Routes>
                 <Route path="/" element={<Wrapper />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/genres" element={<Genres />} />
-                    <Route path="/comic" element={<SingleComic />} />
+                    <Route path="/comics/:comic_id" element={<SingleComic />} />
                     <Route path="/read" element={<Read />} />
 
                     <Route

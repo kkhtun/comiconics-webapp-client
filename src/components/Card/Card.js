@@ -1,9 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import "./Card.scss";
 
 function Card({ comic }) {
-    const { title, description, thumbnail, genres } = comic;
+    const navigate = useNavigate();
+    const { _id, title, description, thumbnail, genres } = comic;
+
+    const navigateToComic = () => {
+        navigate(`/comics/${_id}`);
+    };
     return (
-        <div className="card" title={description}>
+        <div className="card" title={description} onClick={navigateToComic}>
             <div className="cardActiveMask"></div>
             <h3 className="cardTitleHidden">{title}</h3>
             <div

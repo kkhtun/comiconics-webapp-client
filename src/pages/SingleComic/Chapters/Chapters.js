@@ -1,34 +1,40 @@
 import "./Chapters.scss";
-import Image from "../../../assets/hero-featured.jpg";
 
-function ChapterCard() {
+function ChapterCard({ chapter, fallbackThumbnail }) {
     return (
         <div className="chapterCard row g-0">
             <div className="col-3">
-                <img src={Image} alt="chapter cover" />
+                <img
+                    src={chapter.thumbnail || fallbackThumbnail}
+                    alt="chapter cover"
+                />
             </div>
             <div className="col-9 chapterText">
-                <span>Chapter 3</span>
-                <h3>
-                    This is the episode title that will show the title hehe heee
-                    heehe hee hehe hehe
-                </h3>
+                <span>{chapter.title}</span>
+                <h3>{chapter.description}</h3>
             </div>
         </div>
     );
 }
 
-function Chapters() {
-    const data = [1, 2, 3, 4];
+function Chapters({ comic }) {
+    const { chapters, chaptersCount, thumbnail } = comic;
     return (
         <section className="mt-5 chaptersWrapper">
-            <h2 className="chaptersHeading">Chapters (4)</h2>
+            <h2 className="chaptersHeading">Chapters ({chaptersCount})</h2>
             <div className="row g-2">
-                {data.map((d) => (
-                    <div className="col-md-4" key={d}>
-                        <ChapterCard />
-                    </div>
-                ))}
+                {chapters ? (
+                    chapters.map((c) => (
+                        <div className="col-md-4" key={c._id}>
+                            <ChapterCard
+                                chapter={c}
+                                fallbackThumbnail={thumbnail}
+                            />
+                        </div>
+                    ))
+                ) : (
+                    <></>
+                )}
             </div>
         </section>
     );

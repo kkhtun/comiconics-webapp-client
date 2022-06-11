@@ -1,7 +1,9 @@
 @import "../../../Variables.scss";
 .heroSection {
     background-image: url("/assets/hero-background.jpg");
-    height: calc(100vh - 80px);
+    background-position: center;
+    background-size: cover;
+    height: calc(100vh - 70px);
     width: 100%;
 
     .container {

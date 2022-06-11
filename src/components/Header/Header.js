@@ -1,8 +1,8 @@
 import { NavDropdown } from "react-bootstrap";
 import "./Header.scss";
 import { NavLink, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
-
+import { useEffect, useState, useContext } from "react";
+import { AuthContext } from "../../contexts/auth.context";
 function Header() {
     const links = [
         {
@@ -21,6 +21,7 @@ function Header() {
 
     const [path, setPath] = useState("");
     const { pathname } = useLocation();
+    const { auth, setAuth } = useContext(AuthContext);
 
     useEffect(() => {
         setPath(pathname);
@@ -29,7 +30,7 @@ function Header() {
     const handleLogout = (e) => {
         // just a quick workaround for devflow, need to implement more elegant way
         localStorage.clear();
-        window.location.reload();
+        setAuth({});
     };
 
     return (
@@ -45,29 +46,41 @@ function Header() {
                         </div>
                         <nav>
                             {links.map((l, idx) => (
-                                <NavLink
-                                    to={l.route}
-                                    key={idx}
-                                    className={({ isActive }) =>
-                                        isActive
-                                            ? "navLink navLinkActive"
-                                            : "navLink"
-                                    }
-                                >
-                                    {l.name}
-                                </NavLink>
+                                <>
+                                    {l.route === "/login" && auth.token ? (
+                                        <></>
+                                    ) : (
+                                        <NavLink
+                                            to={l.route}
+                                            key={idx}
+                                            className={({ isActive }) =>
+                                                isActive
+                                                    ? "navLink navLinkActive"
+                                                    : "navLink"
+                                            }
+                                        >
+                                            {l.name}
+                                        </NavLink>
+                                    )}
+                                </>
                             ))}
                         </nav>
                     </div>
                     <div className="headerRight">
-                        <NavDropdown
-                            title="admin@gmail.com"
-                            className="dropdown"
-                        >
-                            <NavDropdown.Item onClick={handleLogout}>
-                                Logout
-                            </NavDropdown.Item>
-                        </NavDropdown>
+                        {auth.token ? (
+                            <NavDropdown
+                                title={
+                                    auth.email ? auth.email.split("@")[0] : ""
+                                }
+                                className="dropdown"
+                            >
+                                <NavDropdown.Item onClick={handleLogout}>
+                                    Logout
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                        ) : (
+                            <></>
+                        )}
                     </div>
                 </section>
             )}

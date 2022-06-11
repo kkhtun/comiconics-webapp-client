@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import "./Login.scss";
 
 function Login({ callLogin }) {
@@ -6,7 +7,10 @@ function Login({ callLogin }) {
     const [password, setPassword] = useState("");
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!email || !password) alert("Invalid Email or Password");
+        if (!email || !password) {
+            toast("Invalid Email or Password");
+            return;
+        }
         callLogin({ email, password });
     };
     return (
@@ -14,7 +18,7 @@ function Login({ callLogin }) {
             <h1>Join Us</h1>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="email">Email *</label>
                     <input
                         type="email"
                         id="email"
@@ -24,7 +28,7 @@ function Login({ callLogin }) {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="password">Password</label>
+                    <label htmlFor="password">Password *</label>
                     <input
                         type="password"
                         id="password"
