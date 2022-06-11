@@ -1,6 +1,7 @@
 import { NavDropdown } from "react-bootstrap";
 import "./Header.scss";
-import { NavLink, useLocation } from "react-router-dom";
+import React from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../contexts/auth.context";
 function Header() {
@@ -21,6 +22,7 @@ function Header() {
 
     const [path, setPath] = useState("");
     const { pathname } = useLocation();
+    const navigate = useNavigate();
     const { auth, setAuth } = useContext(AuthContext);
 
     useEffect(() => {
@@ -40,13 +42,16 @@ function Header() {
             ) : (
                 <section className="header">
                     <div className="headerLeft">
-                        <div className="headerLogo">
+                        <div
+                            className="headerLogo"
+                            onClick={() => navigate("/")}
+                        >
                             {/* <img src={Logo} alt="logo" /> */}
                             <h1 className="logoText">Comiconics</h1>
                         </div>
                         <nav>
                             {links.map((l, idx) => (
-                                <>
+                                <React.Fragment key={idx}>
                                     {l.route === "/login" && auth.token ? (
                                         <></>
                                     ) : (
@@ -62,7 +67,7 @@ function Header() {
                                             {l.name}
                                         </NavLink>
                                     )}
-                                </>
+                                </React.Fragment>
                             ))}
                         </nav>
                     </div>

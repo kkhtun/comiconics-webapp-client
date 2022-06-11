@@ -1,5 +1,6 @@
 import { ToastContainer } from "react-toastify";
 import { AuthContextProvider } from "./contexts/auth.context";
+import { LoaderContextProvider } from "./contexts/loader.context";
 import Router from "./Router";
 
 function App() {
@@ -7,7 +8,9 @@ function App() {
         <div>
             <ToastContainer autoClose={4000} theme="dark" />
             <AuthContextProvider>
-                <Router />
+                <LoaderContextProvider>
+                    <Router />
+                </LoaderContextProvider>
             </AuthContextProvider>
         </div>
     );
