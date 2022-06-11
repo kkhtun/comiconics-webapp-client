@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 
 function Details({ comic }) {
     const [hasLiked, setHasLiked] = useState(false);
+    const [comicLikeCount, setComicLikeCount] = useState(0);
     const {
         _id,
         title,
@@ -27,13 +28,18 @@ function Details({ comic }) {
 
     useEffect(() => {
         setHasLiked(!!liked);
-    }, [comic, liked]);
+        setComicLikeCount(likeCount);
+    }, [comic, likeCount, liked]);
 
     const likeOrUnlikeComic = async (comic_id) => {
         const { data } = await axios.patch(
             `${environment.url}/api/v1/comics/${comic_id}/likes`
         );
         setHasLiked(data.liked);
+        const { data: count } = await axios.get(
+            `${environment.url}/api/v1/comics/${comic_id}/likes`
+        );
+        setComicLikeCount(count);
     };
     return (
         <section className="singleComicDetails mt-5">
@@ -72,7 +78,7 @@ function Details({ comic }) {
                             <FontAwesomeIcon icon={faHeart} />
                         </span>
                         &nbsp;Likes&nbsp;:&nbsp;
-                        <span>{likeCount}</span>
+                        <span>{comicLikeCount}</span>
                     </div>
                     <div>
                         <span className="metadataIcons">
