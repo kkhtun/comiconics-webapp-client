@@ -9,6 +9,7 @@ function Read() {
     const { chapter_id } = useParams();
     const { setLoading } = useContext(LoaderContext);
 
+    const [title, setTitle] = useState("");
     const [pages, setPages] = useState([]);
     const [scrollMode, setScrollMode] = useState(false);
 
@@ -24,7 +25,8 @@ function Read() {
         const res = await fetch(
             environment.url + `/api/v1/chapters/${chapter_id}`
         );
-        const { pages } = await res.json();
+        const { pages, comic_id, title: chapterTitle } = await res.json();
+        if (comic_id.title) setTitle(comic_id.title + " / " + chapterTitle);
         pages && setPages(pages);
         setCurrentPage(0);
         setLoading(false);
@@ -37,7 +39,7 @@ function Read() {
     return (
         <div className="readWrapper">
             <section className="readToolbar">
-                <h4>Comic Title / 3 / Chapter The One</h4>
+                <h4>{title}</h4>
                 <div className="pageNavigator">
                     {scrollMode ? (
                         <></>
@@ -96,7 +98,7 @@ function SinglePage({ page }) {
     }, [page, setLoading]);
     return (
         <div className="singlePageView">
-            <img src={image} alt="page" />
+            {image ? <img src={image} alt="page" /> : <></>}
         </div>
     );
 }

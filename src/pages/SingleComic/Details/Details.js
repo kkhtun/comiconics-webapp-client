@@ -10,6 +10,7 @@ import moment from "moment";
 import axios from "axios";
 import environment from "../../../environment";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 function Details({ comic }) {
     const [hasLiked, setHasLiked] = useState(false);
@@ -32,14 +33,19 @@ function Details({ comic }) {
     }, [comic, likeCount, liked]);
 
     const likeOrUnlikeComic = async (comic_id) => {
-        const { data } = await axios.patch(
-            `${environment.url}/api/v1/comics/${comic_id}/likes`
-        );
-        setHasLiked(data.liked);
-        const { data: count } = await axios.get(
-            `${environment.url}/api/v1/comics/${comic_id}/likes`
-        );
-        setComicLikeCount(count);
+        try {
+            const { data } = await axios.patch(
+                `${environment.url}/api/v1/comics/${comic_id}/likes`
+            );
+            setHasLiked(data.liked);
+            setComicLikeCount(data.likeCount);
+        } catch (err) {
+            toast(
+                err.response.status === 422
+                    ? "Please login to like comics"
+                    : err.response.data.message
+            );
+        }
     };
     return (
         <section className="singleComicDetails mt-5">
@@ -78,7 +84,7 @@ function Details({ comic }) {
                             <FontAwesomeIcon icon={faHeart} />
                         </span>
                         &nbsp;Likes&nbsp;:&nbsp;
-                        <span>{comicLikeCount}</span>
+                        <span>{comicLikeCount || 0}</span>
                     </div>
                     <div>
                         <span className="metadataIcons">

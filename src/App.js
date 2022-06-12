@@ -2,7 +2,7 @@ import { ToastContainer } from "react-toastify";
 import { AuthContextProvider } from "./contexts/auth.context";
 import { LoaderContextProvider } from "./contexts/loader.context";
 import Router from "./Router";
-import { useInterceptor } from "./helpers/token.interceptor";
+import { useInterceptor } from "./hooks/token-interceptor.hook";
 
 function App() {
     useInterceptor();

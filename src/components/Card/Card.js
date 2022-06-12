@@ -1,9 +1,11 @@
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import "./Card.scss";
 
 function Card({ comic }) {
     const navigate = useNavigate();
-    const { _id, title, description, thumbnail, genres } = comic;
+    const { _id, title, description, thumbnail, genres, likeCount } = comic;
 
     const navigateToComic = () => {
         navigate(`/comics/${_id}`);
@@ -19,7 +21,9 @@ function Card({ comic }) {
                 }}
             >
                 <span className="cardLikes">
-                    {Math.floor(Math.random() * 100)} Likes
+                    <FontAwesomeIcon icon={faHeart} />
+                    &nbsp;
+                    {likeCount || 0}
                 </span>
             </div>
             <div className="cardText">

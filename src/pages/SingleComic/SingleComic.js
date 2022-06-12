@@ -32,7 +32,7 @@ function SingleComic() {
             <div className="container">
                 <Details comic={comic} />
                 <Chapters comic={comic} />
-                <Comments />
+                <Comments comic_id={comic._id} />
             </div>
         </div>
     );

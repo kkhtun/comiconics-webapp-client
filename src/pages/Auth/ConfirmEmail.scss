@@ -9,10 +9,16 @@
 
     .resendCode {
         margin-top: 15px;
-        color: blue;
-        &:hover,
-        &:focus {
-            color: $tertiary-color;
+        & > * {
+            outline: none;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            color: blue;
+            &:hover,
+            &:focus {
+                color: $tertiary-color;
+            }
         }
     }
 }

@@ -1,7 +1,26 @@
 import "./Hero.scss";
 import { Link } from "react-scroll";
+import { useEffect } from "react";
+// import axios from "axios";
+// import environment from "../../../environment";
+// import { toast } from "react-toastify";
+import { useState } from "react";
 
 function Hero() {
+    const [hero] = useState({});
+    useEffect(() => {
+        // const fetchNaruto = async () => {
+        //     let url = `${environment.url}/api/v1/comics?limit=1&skip=0&search=naruto`;
+        //     const response = await axios.get(url);
+        //     if (response.data.data.length > 0) {
+        //         setHero(response.data.data[0]);
+        //     }
+        // };
+        // fetchNaruto().catch((err) => {
+        //     console.log(err);
+        //     toast(err.response?.data?.message || "Something went wrong");
+        // });
+    }, []);
     return (
         <section className="heroSection">
             <div className="container">
@@ -19,8 +38,17 @@ function Hero() {
                             </Link>
                         </div>
                     </div>
-                    <div className="col-6 coverImgCol">
-                        <span>Read Latest Episode #2</span>
+                    <div
+                        className="col-6 coverImgCol"
+                        style={
+                            hero.thumbnail
+                                ? {
+                                      backgroundImage: `url(${hero.thumbnail})`,
+                                  }
+                                : {}
+                        }
+                    >
+                        <span>Read Latest Episodes #</span>
                     </div>
                 </div>
             </div>

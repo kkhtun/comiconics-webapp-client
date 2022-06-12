@@ -2,7 +2,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import "./Login.scss";
 
-function Login({ callLogin }) {
+function Login({ callLogin, callSignUp }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const handleSubmit = (e) => {
@@ -13,6 +13,14 @@ function Login({ callLogin }) {
         }
         callLogin({ email, password });
     };
+
+    const signUp = () => {
+        if (!email || !password) {
+            toast("Invalid Email or Password");
+            return;
+        }
+        callSignUp({ email, password });
+    };
     return (
         <div className="authCard">
             <h1>Join Us</h1>
@@ -22,7 +30,6 @@ function Login({ callLogin }) {
                     <input
                         type="email"
                         id="email"
-                        required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
@@ -32,13 +39,15 @@ function Login({ callLogin }) {
                     <input
                         type="password"
                         id="password"
-                        required
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
                 <div className="buttonGroup">
                     <button type="submit">Login</button>
+                    <button type="button" onClick={signUp}>
+                        Sign Up
+                    </button>
                 </div>
             </form>
         </div>
