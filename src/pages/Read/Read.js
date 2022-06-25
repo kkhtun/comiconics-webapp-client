@@ -22,7 +22,6 @@ function Read() {
     // Calling API
     const fetchPages = useCallback(async () => {
         setLoading(true);
-        console.log("fetch pages");
         const res = await fetch(
             environment.url + `/api/v1/chapters/${chapter_id}`
         );
@@ -89,7 +88,6 @@ function SinglePage({ page }) {
     useEffect(() => {
         if (page) {
             setLoading(true);
-            console.log("single page fetch");
             fetch(page)
                 .then((response) => response.blob())
                 .then((image) => {
