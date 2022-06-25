@@ -37,6 +37,9 @@ function Details({ comic }) {
     const likeOrUnlikeComic = async (comic_id) => {
         if (!auth.token) return toast("Please login to like comics");
         try {
+            // change to liked in UI first, later sync with server response
+            setComicLikeCount(hasLiked ? likeCount - 1 : likeCount + 1);
+            setHasLiked(!hasLiked);
             const { data } = await axios.patch(
                 `${environment.url}/api/v1/comics/${comic_id}/likes`
             );
