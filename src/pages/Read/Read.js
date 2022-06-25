@@ -14,7 +14,7 @@ function Read() {
     const [scrollMode, setScrollMode] = useState(false);
 
     // for single page mode
-    const [currentPage, setCurrentPage] = useState("");
+    const [currentPage, setCurrentPage] = useState(0);
     const onPageChange = ({ page }) => {
         setCurrentPage(page);
     };
@@ -22,6 +22,7 @@ function Read() {
     // Calling API
     const fetchPages = useCallback(async () => {
         setLoading(true);
+        console.log("fetch pages");
         const res = await fetch(
             environment.url + `/api/v1/chapters/${chapter_id}`
         );
@@ -86,15 +87,18 @@ function SinglePage({ page }) {
     const [image, setImage] = useState("");
     const { setLoading } = useContext(LoaderContext);
     useEffect(() => {
-        setLoading(true);
-        fetch(page)
-            .then((response) => response.blob())
-            .then((image) => {
-                // Create a local URL of that image
-                const localUrl = URL.createObjectURL(image);
-                setImage(localUrl);
-                setLoading(false);
-            });
+        if (page) {
+            setLoading(true);
+            console.log("single page fetch");
+            fetch(page)
+                .then((response) => response.blob())
+                .then((image) => {
+                    // Create a local URL of that image
+                    const localUrl = URL.createObjectURL(image);
+                    setImage(localUrl);
+                    setLoading(false);
+                });
+        }
     }, [page, setLoading]);
     return (
         <div className="singlePageView">

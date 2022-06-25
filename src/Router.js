@@ -1,4 +1,10 @@
-import { Routes, Route, Outlet, Navigate, HashRouter } from "react-router-dom";
+import {
+    Routes,
+    Route,
+    Outlet,
+    Navigate,
+    BrowserRouter,
+} from "react-router-dom";
 import Wrapper from "./Wrapper";
 import Auth from "./pages/Auth/Auth";
 import Home from "./pages/Home/Home";
@@ -35,7 +41,7 @@ function Router() {
         }
     }, [setAuth]);
     return (
-        <HashRouter>
+        <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Wrapper />}>
                     <Route path="/" element={<Home />} />
@@ -61,7 +67,7 @@ function Router() {
                     </Route>
                 </Route>
             </Routes>
-        </HashRouter>
+        </BrowserRouter>
     );
 }
 

@@ -19,7 +19,8 @@ export function useGetComments() {
                 }
             };
             fetchComments().catch((err) => {
-                const msg = err.response.data.message;
+                const msg =
+                    err.response?.data?.message || "Something went wrong";
                 toast(msg);
                 console.error(msg);
             });

@@ -9,12 +9,14 @@ import {
 import moment from "moment";
 import axios from "axios";
 import environment from "../../../environment";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../../contexts/auth.context";
 
 function Details({ comic }) {
     const [hasLiked, setHasLiked] = useState(false);
     const [comicLikeCount, setComicLikeCount] = useState(0);
+    const { auth } = useContext(AuthContext);
     const {
         _id,
         title,
@@ -33,6 +35,7 @@ function Details({ comic }) {
     }, [comic, likeCount, liked]);
 
     const likeOrUnlikeComic = async (comic_id) => {
+        if (!auth.token) return toast("Please login to like comics");
         try {
             const { data } = await axios.patch(
                 `${environment.url}/api/v1/comics/${comic_id}/likes`
