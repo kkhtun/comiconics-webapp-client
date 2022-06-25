@@ -1,27 +1,33 @@
 import "./Filter.scss";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import environment from "../../../environment";
 import SearchIcon from "../../../assets/search.svg";
 import Select from "react-select";
+import { useFetchList } from "../../../hooks/fetch.hook";
+import * as R from "ramda";
 
 function Filter({ onFilter }) {
     const [genres, setGenres] = useState([]);
     const [selectedGenres, setSelectedGenres] = useState([]);
     const [search, setSearch] = useState("");
+    const { response } = useFetchList({
+        url: `${environment.url}/api/v1/genres`,
+        initialQueries: { limit: 0 },
+    });
+
+    useEffect(() => {
+        response.data &&
+            setGenres(
+                R.map(
+                    ({ _id, name }) => ({ label: name, value: _id }),
+                    response.data
+                )
+            );
+    }, [response]);
 
     const handleSelectChange = (e) => {
         setSelectedGenres(e);
     };
-
-    const fetchGenres = useCallback(async () => {
-        const res = await fetch(`${environment.url}/api/v1/genres?limit=0`);
-        const { data } = await res.json();
-        setGenres(data.map((g) => ({ label: g.name, value: g._id })));
-    }, []);
-
-    useEffect(() => {
-        fetchGenres().catch(console.error);
-    }, [fetchGenres]);
 
     const onSubmitFilter = () => {
         onFilter({ genres: selectedGenres.map((g) => g.value), search });
@@ -49,13 +55,17 @@ function Filter({ onFilter }) {
                             <img src={SearchIcon} alt="search" />
                         </div>
                         <div className="filterBox">
-                            <Select
-                                options={genres}
-                                isMulti
-                                closeMenuOnSelect={false}
-                                onChange={handleSelectChange}
-                                className="react-select"
-                            />
+                            {genres && genres.length > 0 ? (
+                                <Select
+                                    options={genres}
+                                    isMulti
+                                    closeMenuOnSelect={false}
+                                    onChange={handleSelectChange}
+                                    className="react-select"
+                                />
+                            ) : (
+                                <></>
+                            )}
                         </div>
                         <button
                             className="filterButton"
