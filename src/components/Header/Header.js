@@ -74,9 +74,7 @@ function Header() {
                     <div className="headerRight">
                         {auth.token ? (
                             <NavDropdown
-                                title={
-                                    auth.email ? auth.email.split("@")[0] : ""
-                                }
+                                title={auth.name || "Anonymous"}
                                 className="dropdown"
                             >
                                 <NavDropdown.Item onClick={handleLogout}>

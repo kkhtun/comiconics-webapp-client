@@ -14,7 +14,7 @@ function LoaderContextProvider({ children }) {
             timeout = setTimeout(() => {
                 setTimeoutLoading(loading);
                 clearTimeout(timeout);
-            }, 200);
+            }, 100);
         }
         return () => clearTimeout(timeout);
     }, [loading]);

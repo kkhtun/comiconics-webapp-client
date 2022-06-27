@@ -31,9 +31,10 @@ function Router() {
     const { auth, setAuth } = useContext(AuthContext);
     useEffect(() => {
         let token = localStorage.getItem("COMICONICS_TOKEN");
-        let email = localStorage.getItem("COMICONICS_USER");
+        let email = localStorage.getItem("COMICONICS_EMAIL");
+        let name = localStorage.getItem("COMICONICS_USERNAME");
         if (token && email) {
-            setAuth({ token, email });
+            setAuth({ token, email, name: name || "Anonymous" });
             console.log("Previous token found on storage, set to context");
         } else {
             setAuth({});
