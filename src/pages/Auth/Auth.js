@@ -2,36 +2,27 @@ import "./Auth.scss";
 import { toast } from "react-toastify";
 import { useContext } from "react";
 import { LoaderContext } from "../../contexts/loader.context";
+import app from "../../firebase";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
-import { signInWithGoogle } from "../../firebase";
-function Auth({ setAuth }) {
+function Auth() {
     const { setLoading } = useContext(LoaderContext);
+
+    const provider = new GoogleAuthProvider();
+    const signInWithGoogle = () => signInWithPopup(getAuth(app), provider);
 
     const triggerGoogleSignIn = async () => {
         try {
             setLoading(true);
             const result = await signInWithGoogle();
-            if (result.user && result.user.accessToken) {
-                setAuth({
-                    token: result.user.accessToken,
-                    email: result.user.email,
-                    name: result.user.displayName || "Anonymous",
-                });
-                localStorage.setItem(
-                    "COMICONICS_TOKEN",
-                    result.user.accessToken
-                );
-                localStorage.setItem("COMICONICS_EMAIL", result.user.email);
-                localStorage.setItem(
-                    "COMICONICS_USERNAME",
-                    result.user.displayName || "Anonymous"
-                );
-                setLoading(false);
+            if (result) {
                 toast("You are successfully logged in!");
             } else {
                 throw new Error("Something went wrong during login");
             }
+            setLoading(false);
         } catch (e) {
+            // trigger if user close the popup
             toast("Something went wrong during login");
             setLoading(false);
             console.log(e);

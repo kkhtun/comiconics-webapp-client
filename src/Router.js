@@ -14,7 +14,8 @@ import Genres from "./pages/Genres/Genres";
 import SingleComic from "./pages/SingleComic/SingleComic";
 import Read from "./pages/Read/Read";
 import { AuthContext } from "./contexts/auth.context";
-
+import app from "./firebase";
+import { getAuth } from "firebase/auth";
 function ProtectedRoute({ auth }) {
     if (!auth) {
         return <Navigate to="/login" replace />;
@@ -29,18 +30,24 @@ function InverseProtectedRoute({ auth }) {
 
 function Router() {
     const { auth, setAuth } = useContext(AuthContext);
+
     useEffect(() => {
-        let token = localStorage.getItem("COMICONICS_TOKEN");
-        let email = localStorage.getItem("COMICONICS_EMAIL");
-        let name = localStorage.getItem("COMICONICS_USERNAME");
-        if (token && email) {
-            setAuth({ token, email, name: name || "Anonymous" });
-            console.log("Previous token found on storage, set to context");
-        } else {
-            setAuth({});
-            localStorage.clear();
-        }
+        getAuth(app).onIdTokenChanged((user) => {
+            console.log("on token change triggered", user);
+            const { displayName, email, accessToken } = user || {};
+            if (accessToken) {
+                setAuth({
+                    token: accessToken,
+                    email,
+                    name: displayName || "Anonymous",
+                });
+                console.log("Previous token found on storage, set to context");
+            } else {
+                setAuth({});
+            }
+        });
     }, [setAuth]);
+
     return (
         <BrowserRouter>
             <Routes>
@@ -54,10 +61,7 @@ function Router() {
                         path=""
                         element={<InverseProtectedRoute auth={auth.token} />}
                     >
-                        <Route
-                            path="/login"
-                            element={<Auth setAuth={setAuth} />}
-                        />
+                        <Route path="/login" element={<Auth />} />
                     </Route>
 
                     <Route

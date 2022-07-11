@@ -1,15 +1,15 @@
 import axios from "axios";
+import { getAuth } from "firebase/auth";
 
 // Add a request interceptor
 export const useInterceptor = () => {
     axios.interceptors.request.use(
-        function (config) {
+        async function (config) {
             // Do something before request is sent
-            let token = localStorage.getItem("COMICONICS_TOKEN");
-            if (token) {
-                config.headers.Authorization = `Bearer ${localStorage.getItem(
-                    "COMICONICS_TOKEN"
-                )}`;
+            const currentUser = getAuth().currentUser;
+            if (currentUser) {
+                const { token } = await currentUser.getIdTokenResult();
+                config.headers.Authorization = `Bearer ${token}`;
             }
             return config;
         },
