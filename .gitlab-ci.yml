@@ -1,0 +1,35 @@
+stages:
+    - build
+    - deploy
+
+default:
+    image: node:fermium-alpine
+    cache:
+        paths:
+            - node_modules/
+
+build_dev:
+    stage: build
+    script:
+        - npm i
+        - npm run build
+    only:
+        refs:
+            - dev
+        changes:
+            - src/**/*
+    artifacts:
+        paths:
+            - build
+        expire_in: 1 hour
+
+deploy_dev:
+    stage: deploy
+    script:
+        - npm i -g firebase-tools
+        - firebase deploy --token $FIREBASE_TOKEN
+    only:
+        refs:
+            - dev
+        changes:
+            - src/**/*
