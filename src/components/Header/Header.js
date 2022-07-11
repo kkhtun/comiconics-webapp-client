@@ -4,6 +4,8 @@ import React from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../contexts/auth.context";
+import app from "../../firebase";
+import { getAuth } from "firebase/auth";
 function Header() {
     const links = [
         {
@@ -23,7 +25,7 @@ function Header() {
     const [path, setPath] = useState("");
     const { pathname } = useLocation();
     const navigate = useNavigate();
-    const { auth, setAuth } = useContext(AuthContext);
+    const { auth } = useContext(AuthContext);
 
     useEffect(() => {
         setPath(pathname);
@@ -31,8 +33,7 @@ function Header() {
 
     const handleLogout = (e) => {
         // just a quick workaround for devflow, need to implement more elegant way
-        localStorage.clear();
-        setAuth({});
+        getAuth(app).signOut();
     };
 
     return (
@@ -74,9 +75,7 @@ function Header() {
                     <div className="headerRight">
                         {auth.token ? (
                             <NavDropdown
-                                title={
-                                    auth.email ? auth.email.split("@")[0] : ""
-                                }
+                                title={auth.name || "Anonymous"}
                                 className="dropdown"
                             >
                                 <NavDropdown.Item onClick={handleLogout}>
