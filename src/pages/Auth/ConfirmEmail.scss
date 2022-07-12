@@ -1,24 +1,24 @@
-@import "../../Variables.scss";
+// @import "../../Variables.scss";
 
-.authCard {
-    max-width: 380px;
+// .authCard {
+//     max-width: 380px;
 
-    label {
-        font-size: $small-text-size;
-    }
+//     label {
+//         font-size: $small-text-size;
+//     }
 
-    .resendCode {
-        margin-top: 15px;
-        & > * {
-            outline: none;
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            color: blue;
-            &:hover,
-            &:focus {
-                color: $tertiary-color;
-            }
-        }
-    }
-}
+//     .resendCode {
+//         margin-top: 15px;
+//         & > * {
+//             outline: none;
+//             background-color: transparent;
+//             border: none;
+//             cursor: pointer;
+//             color: blue;
+//             &:hover,
+//             &:focus {
+//                 color: $tertiary-color;
+//             }
+//         }
+//     }
+// }

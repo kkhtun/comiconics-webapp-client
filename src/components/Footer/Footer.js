@@ -14,9 +14,10 @@ function Footer() {
                         <div>
                             <h1 className="logoText">Comiconics</h1>
                             <p>
-                                Comiconics is the thriving ground for aspiring
-                                artists and comic enthusiasts from Myanmar and
-                                SEA countries.
+                                Comiconics is the thriving ground for new and
+                                interesting comics, find your own stories on the
+                                go, including short comics, manga, manhwa across
+                                different genres.
                             </p>
                         </div>
                     </div>
@@ -24,9 +25,15 @@ function Footer() {
                         <div>
                             <p className="text-center">Contact Us On</p>
                             <div className="socialIcons">
-                                <FontAwesomeIcon icon={faFacebook} />
-                                <FontAwesomeIcon icon={faGoogle} />
-                                <FontAwesomeIcon icon={faReddit} />
+                                <a href="https://www.facebook.com/khaingkhant.htun/">
+                                    <FontAwesomeIcon icon={faFacebook} />
+                                </a>
+                                <a href="mailto:khaingkhanthtun@gmail.com">
+                                    <FontAwesomeIcon icon={faGoogle} />
+                                </a>
+                                <a href="https://www.reddit.com/">
+                                    <FontAwesomeIcon icon={faReddit} />
+                                </a>
                             </div>
                         </div>
                     </div>
