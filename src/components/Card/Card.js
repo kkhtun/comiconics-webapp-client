@@ -5,13 +5,13 @@ import "./Card.scss";
 
 function Card({ comic }) {
     const navigate = useNavigate();
-    const { _id, title, description, thumbnail, genres, likeCount } = comic;
+    const { _id, title, thumbnail, genres, likeCount } = comic;
 
     const navigateToComic = () => {
         navigate(`/comics/${_id}`);
     };
     return (
-        <div className="card" title={description} onClick={navigateToComic}>
+        <div className="card" title={title} onClick={navigateToComic}>
             <div className="cardActiveMask"></div>
             <h3 className="cardTitleHidden">{title}</h3>
             <div

@@ -8,11 +8,16 @@ import environment from "../../../environment";
 import { toast } from "react-toastify";
 import moment from "moment";
 import { AuthContext } from "../../../contexts/auth.context";
+import TinyLoader from "../../../components/Loader/TinyLoader";
 
 function SingleComment({ comment }) {
-    const { body, user_id, createdAt } = comment;
+    const { body, user_id, createdAt, currentlyPosted } = comment;
     return (
-        <div className="singleComment">
+        <div
+            className={`singleComment ${
+                currentlyPosted ? "currentlyPosted" : ""
+            }`}
+        >
             <div className="leftBar"></div>
             <div className="singleCommentText">
                 <h5>
@@ -30,9 +35,11 @@ function Comments({ comic_id }) {
 
     const [comments, setComments] = useState([]);
     const [count, setCount] = useState(0);
+    const [isLoadingMoreCmts, setIsLoadingMoreCmts] = useState(false);
     const { auth } = useContext(AuthContext);
 
     useEffect(() => {
+        setIsLoadingMoreCmts(false);
         response.data && setComments((prev) => [...prev, ...response.data]);
         response.count && setCount(response.count || 0);
     }, [response]);
@@ -45,29 +52,39 @@ function Comments({ comic_id }) {
 
     // loading more comments - we will load by a batch of five, skip set to current comments length
     const loadMoreComments = () => {
+        setIsLoadingMoreCmts(true);
         setQueries({ limit: 5, skip: comments.length });
     };
 
     // Comment Input Stuff
     const [input, setInput] = useState("");
+    const [isPostingCmt, setIsPostingCmt] = useState(false);
     const onComment = async (e) => {
         e.preventDefault();
         if (input) {
             try {
+                setIsPostingCmt(true);
                 const response = await axios.post(
                     `${environment.url}/api/v1/comics/${comic_id}/comments`,
                     { body: input }
                 );
                 if (response.status === 201) {
-                    setComments([response.data, ...comments]);
+                    setComments([
+                        { ...response.data, currentlyPosted: true },
+                        ...comments,
+                    ]);
                     setCount(count + 1);
                     setInput("");
                 }
+                setIsPostingCmt(false);
             } catch (err) {
+                setIsPostingCmt(false);
                 const msg = err.response.data.message;
                 toast(msg);
                 console.error(msg);
             }
+        } else {
+            toast("Please write something to comment!");
         }
     };
     return (
@@ -79,10 +96,15 @@ function Comments({ comic_id }) {
                         type="text"
                         placeholder="Write your comment..."
                         value={input}
+                        disabled={isPostingCmt}
                         onChange={(e) => setInput(e.target.value)}
                     />
                     <button type="submit">
-                        <FontAwesomeIcon icon={faPaperPlane} />
+                        {isPostingCmt ? (
+                            <TinyLoader styles={{ width: "36px" }} />
+                        ) : (
+                            <FontAwesomeIcon icon={faPaperPlane} />
+                        )}
                     </button>
                 </form>
             ) : (
@@ -93,7 +115,14 @@ function Comments({ comic_id }) {
                     <SingleComment key={comment._id} comment={comment} />
                 ))}
                 <div className="loadMoreComments mt-5">
-                    <button onClick={loadMoreComments}>More Comments</button>
+                    <button onClick={loadMoreComments}>
+                        More Comments{" "}
+                        {isLoadingMoreCmts ? (
+                            <TinyLoader styles={{ width: "22px" }} />
+                        ) : (
+                            ""
+                        )}
+                    </button>
                 </div>
             </div>
         </section>

@@ -45,6 +45,11 @@
 
     .singleComment {
         position: relative;
+        &.currentlyPosted {
+            background-color: $secondary-color;
+            border-radius: 5px;
+        }
+
         .leftBar {
             position: absolute;
             height: 90%;

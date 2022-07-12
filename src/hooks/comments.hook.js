@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 export function useGetComments() {
-    const [queries, setQueries] = useState({ limit: 5, skip: 0 });
+    const [queries, setQueries] = useState({ limit: 3, skip: 0 });
     const [comicId, setComicId] = useState(null);
     const [response, setResponse] = useState({});
     useEffect(() => {

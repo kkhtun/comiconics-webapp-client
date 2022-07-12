@@ -33,7 +33,6 @@ function Router() {
 
     useEffect(() => {
         getAuth(app).onIdTokenChanged((user) => {
-            console.log("on token change triggered", user);
             const { displayName, email, accessToken } = user || {};
             if (accessToken) {
                 setAuth({
