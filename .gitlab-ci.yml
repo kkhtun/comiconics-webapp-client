@@ -15,7 +15,7 @@ build_dev:
         - npm run build
     only:
         refs:
-            - dev
+            - development
         changes:
             - src/**/*
     artifacts:
@@ -30,6 +30,6 @@ deploy_dev:
         - firebase deploy --token $FIREBASE_TOKEN
     only:
         refs:
-            - dev
+            - development
         changes:
             - src/**/*
