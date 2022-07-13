@@ -1,0 +1,9 @@
+@import "../../Variables.scss";
+
+@media (max-width: $mobile) {
+    .genresWrapper {
+        & > .container {
+            padding: 0px 20px;
+        }
+    }
+}

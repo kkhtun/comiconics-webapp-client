@@ -10,6 +10,8 @@ $medium-text-size: 24px;
 $small-text-size: 20px;
 $very-small-text-size: 18px;
 
+$mobile: 768px;
+
 @mixin flexCenterAll {
     display: flex;
     align-items: center;

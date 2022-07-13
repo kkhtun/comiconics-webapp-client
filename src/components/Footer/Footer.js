@@ -10,7 +10,7 @@ function Footer() {
         <section className="footerWrapper">
             <div className="container">
                 <div className="row mb-5">
-                    <div className="col-6 footerText">
+                    <div className="col-md-6 col-12 footerText">
                         <div>
                             <h1 className="logoText">Comiconics</h1>
                             <p>
@@ -21,7 +21,7 @@ function Footer() {
                             </p>
                         </div>
                     </div>
-                    <div className="col-6 footerSocial">
+                    <div className="col-md-6 col-12 footerSocial">
                         <div>
                             <p className="text-center">Contact Us On</p>
                             <div className="socialIcons">

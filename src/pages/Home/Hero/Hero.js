@@ -1,9 +1,6 @@
 import "./Hero.scss";
 import { Link } from "react-scroll";
 import { useEffect } from "react";
-// import axios from "axios";
-// import environment from "../../../environment";
-// import { toast } from "react-toastify";
 import { useState } from "react";
 
 function Hero() {
@@ -25,7 +22,7 @@ function Hero() {
         <section className="heroSection">
             <div className="container">
                 <div className="heroCard row">
-                    <div className="col-6 heroTextCol">
+                    <div className="col-12 col-md-6 heroTextCol">
                         <div>
                             <h1>Comics on the Go!</h1>
                             <p>
@@ -39,7 +36,7 @@ function Hero() {
                         </div>
                     </div>
                     <div
-                        className="col-6 coverImgCol"
+                        className="col-12 col-md-6 coverImgCol"
                         style={
                             hero.thumbnail
                                 ? {

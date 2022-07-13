@@ -6,6 +6,8 @@ import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../contexts/auth.context";
 import app from "../../firebase";
 import { getAuth } from "firebase/auth";
+import { faNavicon } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function Header() {
     const links = [
         {
@@ -36,6 +38,9 @@ function Header() {
         getAuth(app).signOut();
     };
 
+    // UI handlers
+    const [showNav, setShowNav] = useState(false);
+
     return (
         <>
             {path.includes("/read") ? (
@@ -50,13 +55,14 @@ function Header() {
                             {/* <img src={Logo} alt="logo" /> */}
                             <h1 className="logoText">Comiconics</h1>
                         </div>
-                        <nav>
+                        <nav className={showNav ? "" : "hideNav"}>
                             {links.map((l, idx) => (
                                 <React.Fragment key={idx}>
                                     {l.route === "/login" && auth.token ? (
                                         <></>
                                     ) : (
                                         <NavLink
+                                            onClick={() => setShowNav(false)}
                                             to={l.route}
                                             key={idx}
                                             className={({ isActive }) =>
@@ -85,6 +91,12 @@ function Header() {
                         ) : (
                             <></>
                         )}
+                    </div>
+                    <div className="navicon">
+                        <FontAwesomeIcon
+                            icon={faNavicon}
+                            onClick={() => setShowNav((prev) => !prev)}
+                        />
                     </div>
                 </section>
             )}

@@ -34,3 +34,9 @@
         font-size: $medium-text-size;
     }
 }
+
+@media (max-width: $mobile) {
+    .footerText {
+        text-align: center;
+    }
+}

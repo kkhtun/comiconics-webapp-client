@@ -31,6 +31,13 @@
                     margin-top: 10px;
                 }
 
+                @mixin formatInputMobile {
+                    @media (max-width: $mobile) {
+                        max-width: 100%;
+                        width: 100%;
+                    }
+                }
+
                 .searchBox {
                     background-color: $secondary-color;
                     height: $searchBoxHeight;
@@ -57,6 +64,8 @@
                             border: 2px solid $primary-color;
                         }
                     }
+
+                    @include formatInputMobile;
                 }
 
                 .filterBox {
@@ -67,6 +76,7 @@
                             border: 2px solid $primary-color;
                         }
                     }
+                    @include formatInputMobile;
                 }
 
                 .filterButton {
@@ -81,6 +91,7 @@
                     &:hover {
                         background-color: transparent;
                     }
+                    @include formatInputMobile;
                 }
             }
         }

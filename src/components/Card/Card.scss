@@ -4,7 +4,7 @@
     height: 450px;
     display: flex;
     flex-direction: column;
-    border-radius: 5px;
+    border-radius: 10px;
     overflow: hidden;
     background-color: $secondary-color;
     z-index: 1;
@@ -80,6 +80,19 @@
 
         .cardText {
             color: $secondary-color;
+        }
+    }
+}
+
+@media (max-width: $mobile) {
+    .card {
+        .cardText {
+            text-align: center;
+            h3 {
+                font-size: $large-text-size;
+                line-height: $large-text-size + 4px;
+                height: calc(2 * $large-text-size + 4px);
+            }
         }
     }
 }

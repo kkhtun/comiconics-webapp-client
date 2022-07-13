@@ -54,3 +54,41 @@
         }
     }
 }
+
+@media (max-width: $mobile) {
+    .heroSection {
+        height: calc(100vh - 60px);
+        .heroCard {
+            margin: 10px;
+            .heroTextCol {
+                position: relative;
+                &:before {
+                    content: "";
+                    background-image: url("/assets/hero-featured.jpg");
+                    background-size: cover;
+                    background-position: center;
+                    position: absolute;
+                    top: 0px;
+                    right: 0px;
+                    bottom: 0px;
+                    left: 0px;
+                    opacity: 0.3;
+                }
+                & > div {
+                    z-index: 9;
+                    text-align: center;
+                    h1 {
+                        font-size: $large-text-size;
+                    }
+                    p {
+                        font-size: $small-text-size;
+                    }
+                }
+            }
+
+            .coverImgCol {
+                display: none;
+            }
+        }
+    }
+}

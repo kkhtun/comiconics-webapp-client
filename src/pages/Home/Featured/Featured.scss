@@ -7,3 +7,10 @@
         @include sectionHeading;
     }
 }
+
+@media (max-width: $mobile) {
+    .featuredWrapper {
+        margin: 50px 10px 10px 10px;
+        text-align: center;
+    }
+}
